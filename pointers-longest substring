@@ -1,0 +1,30 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+int longest_unique_substring(string str) {
+    vector<int> lastIndex(256, -1); 
+    int maxLen = 0;
+    int start = 0; 
+
+    for (int i = 0; i < str.length(); i++) {
+        
+        if (lastIndex[str[i]] >= start) {
+            start = lastIndex[str[i]] + 1;
+        }
+
+        lastIndex[str[i]] = i;
+        maxLen = max(maxLen, i - start + 1); 
+    }
+
+    return maxLen;
+}
+
+int main() {
+    string str;
+    cin >> str;
+
+    cout << longest_unique_substring(str);
+    return 0;
+}
